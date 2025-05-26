@@ -1,37 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+et boxes = document.querySelectorAll(".box");
+let msgcontainer= document.querySelector(".msg-container");
+let msg=document.querySelector("#msg");
+// console.log(boxes);
+let flagX = true;
+const winningPatterns = [[3, 4, 5], [0, 1, 2], [6, 7, 8], [0, 3, 6,], [1, 4, 7,], [2, 5, 8,], [0, 4, 8,], [2, 4, 6,]];
+boxes.forEach((box) => {
+    box.addEventListener('click', () => {
+        console.log("box is clicked");
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIC TAC TOE</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+        if (flagX) {
+            box.innerText = "X";
+            flagX = false;
+            box.disabled = true;
+        }
+        else {
+            box.innerText = "O";
+            flagX = true;
+            box.disabled = true;
+        }
+        showWineer();
+    });
+});
+showWineer = () => {
 
-<body>
-    <main>
-        <div class="msg-container hide">
-            <p id="msg">winner </p>
-        </div>
-        <h1>tic tac toe</h1>
-        <div class="container">
-            <div class="game">
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-            </div>
-        </div>
-     
-    </main>
-  <script src="script js"></script>
-</body>
-
-</html>
-
-
+    for (pattern of winningPatterns) {
+        let position1 = boxes[pattern[0]].innerText;
+        let position2 = boxes[pattern[1]].innerText;
+        let position3 = boxes[pattern[2]].innerText;
+        // console.log(position1);
+        // console.log(position2);
+        //console.log(position3);
+        if (position1 != "" && position2 != "" && position3 != "") {
+            if (position1 == position2 && position2 == position3) {
+                console.log("winner");
+                winner(position1);
+                disableButtons();
+            }
+        }
+    }
+        
+}
+disableButtons = () => {
+    for (box of boxes) {
+        box.disabled = true;
+    }
+}
+const winner=(winner)=>{
+    msg.innerText = `congraulations,winner is ${winner}`;
+    msgcontainer.classList.remove("hide");
+    
+}
+// test-
+// nikhil working on github
+nikhil
